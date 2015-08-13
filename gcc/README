@@ -1,0 +1,39 @@
+README for gfs/oss/gcc
+=============================================================================
+
+This directory contains the official GCC binaries used to build distributed
+AMPS releases. Beginning with AMPS 4.3.2.0 we build our own GCC so that we can
+control the support matrix for the AMPS binaries. These GCC binaries differ
+from a standard Linux distribution's binaries only in that GCC itself was
+compiled on a very old Linux distribution, such that GCC wouldn't auto-detect
+binutils features from newer distributions that don't exist on the old side of
+our support matrix.
+
+To build a new GCC for this directory follow these steps:
+
+1. Identify the oldest RedHat/CentOS version we want to support.
+2. Install that RedHat/CentOS version on a new virtual machine.
+3. Download the desired GCC tarball, unpack, and build GCC on that virtual
+   machine.
+
+   a. Note that GCC may or may not build out-of-the-box on your oldest desired
+      distribution. You can choose to hack things to make it build, or
+      pick a newer RedHat/CentOS version, hoping that the GCC you build emits
+      binaries that happen to work on the low end of your target matrix.
+      (For GCC 4.9.3., I chose the latter, building GCC on CentOS 5.0, which
+      results in a GCC that produces binaries that work on CentOS 4.8,
+      determined by testing.)
+   b. See the blog post on "Breaking the Chains of Version Dependency" for
+      handy tips if you've never built GCC yourself. It takes a few steps.
+
+4. Copy over the GCC destination directory to GFS. I'm unable to safely
+   determine a "minimal subset" of GCC, so this is the whole destination tree.
+
+
+Here's a table of gcc version along with what OS the GCC was built on and the
+earliest OS we support with that GCC. Please keep it up to date.
+
+Directory          Built on                     Supports
+-----------------------------------------------------------------------------
+gcc-4.9.3          CentOS 5.0                   CentOS 4.8+
+
